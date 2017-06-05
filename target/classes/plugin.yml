@@ -1,0 +1,12 @@
+name: SafeDrop
+version: 1.0.1-SNAPSHOT
+main: info.faceland.SafeDrop.SafeDropPlugin
+depend: [Facecore]
+
+permissions:
+  SafeDrop.drop:
+    default: true
+
+commands:
+  drop:
+    aliases: [td]
