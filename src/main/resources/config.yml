@@ -1,0 +1,5 @@
+settings:
+   drops-disabled-by-default: true
+   on-drop-stop-message: Dropping is disabled for your protection! Type '/drop' to enable item dropping.
+   on-enable-message: Item dropping enabled! Type '/drop' if you wish to disable it.
+   on-disable-message: Item dropping disabled!

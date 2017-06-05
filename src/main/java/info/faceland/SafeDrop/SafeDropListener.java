@@ -45,9 +45,9 @@ public class SafeDropListener implements Listener {
             return;
         }
 
-        if(!plugin.playersWithDropEnabled.contains(event.getPlayer().toString()) && !plugin.playersInInventory.contains((event.getPlayer().toString()))){
+        if(!plugin.playersInInventory.contains((event.getPlayer().toString())) && (!plugin.playersWithPreferenceSet.contains(event.getPlayer().toString()) == plugin.getConfig().getBoolean("settings.drops-disabled-by-default"))){
             event.setCancelled(true);
-            event.getPlayer().sendMessage(ChatColor.YELLOW + "Dropping is disabled for your protection! Type '/drop' to enable item dropping.");
+            event.getPlayer().sendMessage(ChatColor.YELLOW + plugin.getConfig().getString("settings.on-drop-stop-message"));
             return;
         }
     }

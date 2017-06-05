@@ -30,17 +30,22 @@ import org.bukkit.event.HandlerList;
 import se.ranzdo.bukkit.methodcommand.CommandHandler;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SafeDropPlugin extends FacePlugin {
 
-    protected List<String> playersWithDropEnabled;
+    File dataYml = new File(this.getDataFolder()+"/data.yml");
+    FileConfiguration data = YamlConfiguration.loadConfiguration(dataYml);
+
+    protected List<String> playersWithPreferenceSet;
     protected List<String> playersInInventory;
+
 
     @Override
     public void enable() {
-        playersWithDropEnabled = getConfig().getStringList("PlayersWithDropEnabled");
+        playersWithPreferenceSet = data.getStringList("PlayersWithPreferenceSet");
         playersInInventory = new ArrayList<String>();
         Bukkit.getPluginManager().registerEvents(new SafeDropListener(this), this);
         CommandHandler commandHandler = new CommandHandler(this);
@@ -49,6 +54,12 @@ public class SafeDropPlugin extends FacePlugin {
 
     @Override
     public void disable() {
+        data.set("PlayersWithPreferenceSet", playersWithPreferenceSet);
+        try {
+            data.save(dataYml);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         HandlerList.unregisterAll(this);
     }
 

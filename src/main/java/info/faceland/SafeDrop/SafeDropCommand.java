@@ -26,9 +26,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import se.ranzdo.bukkit.methodcommand.Command;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class SafeDropCommand {
 
     private final SafeDropPlugin plugin;
@@ -39,17 +36,15 @@ public class SafeDropCommand {
 
     @Command(identifier = "drop", permissions = "SafeDrop.drop")
     public void dropSubcommand(Player sender){
-        if(plugin.playersWithDropEnabled.contains(sender.toString())){
-            plugin.playersWithDropEnabled.remove((sender.toString()));
-            sender.sendMessage(ChatColor.GREEN + "Item dropping disabled!");
+        if(plugin.playersWithPreferenceSet.contains(sender.toString())){
+            plugin.playersWithPreferenceSet.remove((sender.toString()));
+            sender.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("settings.on-disable-message"));
         }
         else
         {
-            plugin.playersWithDropEnabled.add((sender.toString()));
-            sender.sendMessage(ChatColor.GREEN + "Item dropping enabled! Type '/drop' if you wish to disable it.");
+            plugin.playersWithPreferenceSet.add((sender.toString()));
+            sender.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("settings.on-enable-message"));
         }
-        plugin.getConfig().set("PlayersWithDropEnabled", plugin.playersWithDropEnabled);
-        plugin.saveConfig();
     }
 
 }
