@@ -46,7 +46,7 @@ public class SafeDropCommand {
         {
             plugin.playersWithPreferenceSet.add((sender.getUniqueId().toString()));
             //sender.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("settings.on-enable-message"));
-            MessageUtils.sendMessage(sender, plugin.getConfig().getString("settings.on-ensable-message"));
+            MessageUtils.sendMessage(sender, plugin.getConfig().getString("settings.on-enable-message"));
         }
     }
 
