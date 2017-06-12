@@ -1,5 +1,18 @@
+version: "0.0.1"
 settings:
+   # Enables debug mode
+   debug: false
+
+   # Sets default behavior.
+   # True: players opted in can drop.
+   # False: players opted in cannot drop.
    drops-disabled-by-default: true
-   on-drop-stop-message: Dropping is disabled for your protection! Type '/drop' to enable item dropping.
-   on-enable-message: Item dropping enabled! Type '/drop' if you wish to disable it.
-   on-disable-message: Item dropping disabled!
+
+   # Message given to player when a drop is stopped.
+   on-drop-stop-message: "<yellow>Dropping is disabled for your protection! Type '/drop' to enable item dropping."
+
+   # Message given to player when opting in.
+   on-enable-message: "<green>Item dropping enabled! Type '/drop' if you wish to disable it."
+
+   # Message given to player when opting out.
+   on-disable-message: "<green>Item dropping disabled!"

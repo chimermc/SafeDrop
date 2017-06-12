@@ -30,6 +30,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import com.tealcube.minecraft.bukkit.facecore.utilities.MessageUtils;
 
 public class SafeDropListener implements Listener {
 
@@ -45,9 +46,10 @@ public class SafeDropListener implements Listener {
             return;
         }
 
-        if(!plugin.playersInInventory.contains((event.getPlayer().toString())) && (!plugin.playersWithPreferenceSet.contains(event.getPlayer().toString()) == plugin.getConfig().getBoolean("settings.drops-disabled-by-default"))){
+        if(!plugin.playersInInventory.contains((event.getPlayer().getUniqueId().toString())) && (!plugin.playersWithPreferenceSet.contains(event.getPlayer().getUniqueId().toString()) == plugin.getConfig().getBoolean("settings.drops-disabled-by-default"))){
             event.setCancelled(true);
-            event.getPlayer().sendMessage(ChatColor.YELLOW + plugin.getConfig().getString("settings.on-drop-stop-message"));
+            //event.getPlayer().sendMessage(ChatColor.YELLOW + plugin.getConfig().getString("settings.on-drop-stop-message"));
+            MessageUtils.sendMessage(event.getPlayer(), plugin.getConfig().getString("settings.on-drop-stop"));
             return;
         }
     }
@@ -58,8 +60,8 @@ public class SafeDropListener implements Listener {
             return;
         }
 
-        if(!plugin.playersInInventory.contains(event.getWhoClicked().toString())) {
-            plugin.playersInInventory.add(event.getWhoClicked().toString());
+        if(!plugin.playersInInventory.contains(event.getWhoClicked().getUniqueId().toString())) {
+            plugin.playersInInventory.add(event.getWhoClicked().getUniqueId().toString());
         }
     }
 
@@ -69,8 +71,8 @@ public class SafeDropListener implements Listener {
             return;
         }
 
-        if(plugin.playersInInventory.contains(event.getPlayer().toString())) {
-            plugin.playersInInventory.remove(event.getPlayer().toString());
+        if(plugin.playersInInventory.contains(event.getPlayer().getUniqueId().toString())) {
+            plugin.playersInInventory.remove(event.getPlayer().getUniqueId().toString());
         }
     }
 
@@ -80,8 +82,8 @@ public class SafeDropListener implements Listener {
             return;
         }
 
-        if(plugin.playersInInventory.contains(event.getPlayer().toString())) {
-            plugin.playersInInventory.remove(event.getPlayer().toString());
+        if(plugin.playersInInventory.contains(event.getPlayer().getUniqueId().toString())) {
+            plugin.playersInInventory.remove(event.getPlayer().getUniqueId().toString());
         }
     }
 
