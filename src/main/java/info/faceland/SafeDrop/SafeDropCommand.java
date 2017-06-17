@@ -22,6 +22,7 @@
  */
 package info.faceland.SafeDrop;
 
+import com.tealcube.minecraft.bukkit.facecore.utilities.MessageUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import se.ranzdo.bukkit.methodcommand.Command;
@@ -34,16 +35,18 @@ public class SafeDropCommand {
         this.plugin = plugin;
     }
 
-    @Command(identifier = "drop", permissions = "SafeDrop.drop")
+    @Command(identifier = "drop", permissions = "safedrop.drop")
     public void dropSubcommand(Player sender){
-        if(plugin.playersWithPreferenceSet.contains(sender.toString())){
-            plugin.playersWithPreferenceSet.remove((sender.toString()));
-            sender.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("settings.on-disable-message"));
+        if(plugin.playersWithPreferenceSet.contains(sender.getUniqueId().toString())){
+            plugin.playersWithPreferenceSet.remove((sender.getUniqueId().toString()));
+            //sender.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("settings.on-disable-message"));
+            MessageUtils.sendMessage(sender, plugin.getConfig().getString("settings.on-disable-message"));
         }
         else
         {
-            plugin.playersWithPreferenceSet.add((sender.toString()));
-            sender.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("settings.on-enable-message"));
+            plugin.playersWithPreferenceSet.add((sender.getUniqueId().toString()));
+            //sender.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("settings.on-enable-message"));
+            MessageUtils.sendMessage(sender, plugin.getConfig().getString("settings.on-enable-message"));
         }
     }
 

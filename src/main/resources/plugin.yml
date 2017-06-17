@@ -4,9 +4,8 @@ main: info.faceland.SafeDrop.SafeDropPlugin
 depend: [Facecore]
 
 permissions:
-  SafeDrop.drop:
+  safedrop.drop:
     default: true
 
 commands:
   drop:
-    aliases: [td]

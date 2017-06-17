@@ -24,28 +24,51 @@ package info.faceland.SafeDrop;
 
 import com.tealcube.minecraft.bukkit.facecore.plugin.FacePlugin;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
+//import org.bukkit.configuration.file.FileConfiguration;
+//import org.bukkit.configuration.file.YamlConfiguration;
+//import io.pixeloutlaw.minecraft.spigot.config.MasterConfiguration;
+//import io.pixeloutlaw.minecraft.spigot.config.SmartYamlConfiguration;
+import io.pixeloutlaw.minecraft.spigot.config.VersionedConfiguration;
+import io.pixeloutlaw.minecraft.spigot.config.VersionedSmartYamlConfiguration;
+//import com.tealcube.minecraft.bukkit.facecore.logging.PluginLogger;
+//import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.HandlerList;
 import se.ranzdo.bukkit.methodcommand.CommandHandler;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+//import java.util.logging.Level;
 
 public class SafeDropPlugin extends FacePlugin {
 
-    File dataYml = new File(this.getDataFolder()+"/data.yml");
-    FileConfiguration data = YamlConfiguration.loadConfiguration(dataYml);
+    //private PluginLogger debugPrinter;
+    private VersionedSmartYamlConfiguration configYAML;
+    private VersionedSmartYamlConfiguration dataYAML;
 
     protected List<String> playersWithPreferenceSet;
     protected List<String> playersInInventory;
 
-
     @Override
     public void enable() {
-        playersWithPreferenceSet = data.getStringList("PlayersWithPreferenceSet");
+        //debugPrinter = new PluginLogger(this);
+        configYAML = new VersionedSmartYamlConfiguration(new File(getDataFolder(), "config.yml"),
+                getResource("config.yml"),
+                VersionedConfiguration.VersionUpdateType
+                        .BACKUP_AND_UPDATE);
+        /*if (configYAML.update()) {
+            getLogger().info("Updating config.yml");
+            debug("Updating config.yml");
+        }*/
+        dataYAML = new VersionedSmartYamlConfiguration(new File(getDataFolder(), "data.yml"),
+                getResource("data.yml"),
+                VersionedConfiguration.VersionUpdateType
+                        .BACKUP_AND_UPDATE);
+        /*if (dataYAML.update()) {
+            getLogger().info("Updating data.yml");
+            debug("Updating data.yml");
+        }*/
+        playersWithPreferenceSet = dataYAML.getStringList("PlayersWithPreferenceSet");
         playersInInventory = new ArrayList<String>();
         Bukkit.getPluginManager().registerEvents(new SafeDropListener(this), this);
         CommandHandler commandHandler = new CommandHandler(this);
@@ -54,13 +77,21 @@ public class SafeDropPlugin extends FacePlugin {
 
     @Override
     public void disable() {
-        data.set("PlayersWithPreferenceSet", playersWithPreferenceSet);
-        try {
-            data.save(dataYml);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        dataYAML.set("PlayersWithPreferenceSet", playersWithPreferenceSet);
+        dataYAML.save();
+
         HandlerList.unregisterAll(this);
+
     }
 
+    /*
+    public void debug(String... messages) {
+        debug(Level.INFO, messages);
+    }
+
+    public void debug(Level level, String... messages) {
+        if (debugPrinter != null && (configYAML == null || configYAML.getBoolean("settings.debug", false))) {
+            debugPrinter.log(level, Arrays.asList(messages));
+        }
+    }*/
 }
