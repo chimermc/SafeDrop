@@ -24,23 +24,21 @@ package info.faceland.SafeDrop;
 
 import com.tealcube.minecraft.bukkit.facecore.plugin.FacePlugin;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import io.pixeloutlaw.minecraft.spigot.config.MasterConfiguration;
-import io.pixeloutlaw.minecraft.spigot.config.SmartYamlConfiguration;
+//import org.bukkit.configuration.file.FileConfiguration;
+//import org.bukkit.configuration.file.YamlConfiguration;
+//import io.pixeloutlaw.minecraft.spigot.config.MasterConfiguration;
+//import io.pixeloutlaw.minecraft.spigot.config.SmartYamlConfiguration;
 import io.pixeloutlaw.minecraft.spigot.config.VersionedConfiguration;
 import io.pixeloutlaw.minecraft.spigot.config.VersionedSmartYamlConfiguration;
-import com.tealcube.minecraft.bukkit.facecore.logging.PluginLogger;
-import org.bukkit.configuration.ConfigurationSection;
+//import com.tealcube.minecraft.bukkit.facecore.logging.PluginLogger;
+//import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.HandlerList;
 import se.ranzdo.bukkit.methodcommand.CommandHandler;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
+//import java.util.logging.Level;
 
 public class SafeDropPlugin extends FacePlugin {
 
