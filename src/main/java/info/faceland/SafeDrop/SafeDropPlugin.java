@@ -44,42 +44,32 @@ import java.util.logging.Level;
 
 public class SafeDropPlugin extends FacePlugin {
 
-    private PluginLogger debugPrinter;
+    //private PluginLogger debugPrinter;
     private VersionedSmartYamlConfiguration configYAML;
     private VersionedSmartYamlConfiguration dataYAML;
-    private VersionedSmartYamlConfiguration pluginYAML;
 
     protected List<String> playersWithPreferenceSet;
     protected List<String> playersInInventory;
 
     @Override
     public void enable() {
-        debugPrinter = new PluginLogger(this);
+        //debugPrinter = new PluginLogger(this);
         configYAML = new VersionedSmartYamlConfiguration(new File(getDataFolder(), "config.yml"),
                 getResource("config.yml"),
                 VersionedConfiguration.VersionUpdateType
                         .BACKUP_AND_UPDATE);
-        if (configYAML.update()) {
+        /*if (configYAML.update()) {
             getLogger().info("Updating config.yml");
             debug("Updating config.yml");
-        }
+        }*/
         dataYAML = new VersionedSmartYamlConfiguration(new File(getDataFolder(), "data.yml"),
                 getResource("data.yml"),
                 VersionedConfiguration.VersionUpdateType
                         .BACKUP_AND_UPDATE);
-        if (dataYAML.update()) {
+        /*if (dataYAML.update()) {
             getLogger().info("Updating data.yml");
             debug("Updating data.yml");
-        }
-        pluginYAML = new VersionedSmartYamlConfiguration(new File(getDataFolder(), "plugin.yml"),
-                getResource("plugin.yml"),
-                VersionedConfiguration.VersionUpdateType
-                        .BACKUP_AND_UPDATE);
-        if (pluginYAML.update()) {
-            getLogger().info("Updating plugin.yml");
-            debug("Updating plugin.yml");
-        }
-
+        }*/
         playersWithPreferenceSet = dataYAML.getStringList("PlayersWithPreferenceSet");
         playersInInventory = new ArrayList<String>();
         Bukkit.getPluginManager().registerEvents(new SafeDropListener(this), this);
@@ -89,13 +79,14 @@ public class SafeDropPlugin extends FacePlugin {
 
     @Override
     public void disable() {
+        dataYAML.set("PlayersWithPreferenceSet", playersWithPreferenceSet);
         dataYAML.save();
 
         HandlerList.unregisterAll(this);
 
-
     }
 
+    /*
     public void debug(String... messages) {
         debug(Level.INFO, messages);
     }
@@ -104,5 +95,5 @@ public class SafeDropPlugin extends FacePlugin {
         if (debugPrinter != null && (configYAML == null || configYAML.getBoolean("settings.debug", false))) {
             debugPrinter.log(level, Arrays.asList(messages));
         }
-    }
+    }*/
 }

@@ -48,8 +48,7 @@ public class SafeDropListener implements Listener {
 
         if(!plugin.playersInInventory.contains((event.getPlayer().getUniqueId().toString())) && (!plugin.playersWithPreferenceSet.contains(event.getPlayer().getUniqueId().toString()) == plugin.getConfig().getBoolean("settings.drops-disabled-by-default"))){
             event.setCancelled(true);
-            //event.getPlayer().sendMessage(ChatColor.YELLOW + plugin.getConfig().getString("settings.on-drop-stop-message"));
-            MessageUtils.sendMessage(event.getPlayer(), plugin.getConfig().getString("settings.on-drop-stop"));
+            MessageUtils.sendMessage(event.getPlayer(), plugin.getConfig().getString("settings.on-drop-stop-message"));
             return;
         }
     }
