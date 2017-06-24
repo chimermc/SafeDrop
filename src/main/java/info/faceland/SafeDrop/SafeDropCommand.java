@@ -39,13 +39,11 @@ public class SafeDropCommand {
     public void dropSubcommand(Player sender){
         if(plugin.playersWithPreferenceSet.contains(sender.getUniqueId().toString())){
             plugin.playersWithPreferenceSet.remove((sender.getUniqueId().toString()));
-            //sender.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("settings.on-disable-message"));
             MessageUtils.sendMessage(sender, plugin.getConfig().getString("settings.on-disable-message"));
         }
         else
         {
             plugin.playersWithPreferenceSet.add((sender.getUniqueId().toString()));
-            //sender.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("settings.on-enable-message"));
             MessageUtils.sendMessage(sender, plugin.getConfig().getString("settings.on-enable-message"));
         }
     }
